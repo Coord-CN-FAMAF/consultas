@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CN2C-2025-FAMAF </title>
+</head>
+<body>
+    <h1>Curso de nivelación - intensivo 2026 - FAMAF</h1>
+    <label for="number">DNI/CUIL/PAS (sin puntos):</label>
+    <input type="text" id="number" name="number">
+    <button onclick="searchCSV()">Buscar</button>
+    <h2>Resultado:</h2>
+    <div id="output"></div>
+    <script>
+        async function searchCSV() {
+            const number = document.getElementById('number').value;
+            const response = await fetch('Consulta.csv');
+            const data = await response.text();
+            const rows = data.split('\n').slice(1);
+            const filteredRows = rows.filter(row => row.split(',')[0] === number);
+            const output = document.getElementById('output');
+            output.innerHTML = '';
+            if (filteredRows.length > 0) {
+                const row = filteredRows[0].split(',');
+                output.innerHTML = `Comisión: ${row[1]} turno ${row[7]}<br>
+                <br>
+                Prof. de teórico: ${row[4]}<br>
+                Aula de teórico: ${row[3]} <a href="${row[9]}" target="_blank" style="color: blue;">Ver ubicación.</a> <br>
+                <br>
+                Prof. de práctico: ${row[5]}<br>
+                Ayudante de práctico: ${row[6]}<br>
+                Aula de práctico: ${row[2]} <a href="${row[8]}" target="_blank" style="color: blue;">Ver ubicación.</a>`;
+            } else {
+                output.innerHTML = 'No encontramos tu DNI. Por favor, completa el siguiente formulario para reportar el problema. <br> <a href="https://docs.google.com/forms/d/1sCbZTq0Ni-es__DcOGyYcfm2X-nSysB5UL5GTomNdFE/edit" target="_blank" style="color: blue;">clic aquí.</a>';
+            }
+        }
+    </script>
+</body>
+</html>
