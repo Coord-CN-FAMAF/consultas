@@ -23,7 +23,7 @@
             output.innerHTML = '';
             if (filteredRows.length > 0) {
                 const row = filteredRows[0].split(',');
-                output.innerHTML = `<FONT FACE="raro, courier" SIZE=4 COLOR="red"> COMISIÓN: ${row[1]} turno ${row[7]}</FONT>
+                output.innerHTML = `<H2>COMISIÓN: ${row[1]} TURNO ${row[7]}</H2>
                 <H3>Clases Teóricas</H3>${row[10]} <br>
                 Prof. de teórico: ${row[4]}<br>
                 Aula de teórico: ${row[3]} <a href="${row[9]}" target="_blank" style="color: blue;">Ver ubicación.</a> <br>
