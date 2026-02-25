@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta de Notas - CNI 2026</title>
+    <title>Consulta de Notas de parciales - CNI 2026</title>
     <style>
         /* Reset y Estilos Base */
         body {
@@ -133,7 +133,7 @@
             }
 
             try {
-                const response = await fetch('PP_CNI_26.csv');
+                const response = await fetch('CNI_26.csv');
                 const data = await response.text();
                 const rows = data.split('\n').filter(row => row.trim() !== "").slice(1);
 
@@ -144,6 +144,9 @@
                     output.innerHTML = `
                         <p style="font-size: 0.9rem; color: #666;">Resultado del primer parcial:</p>
                         <h2 class="result-name">${row[1]}</h2>
+                        <p style="font-size: 0.9rem; color: #666;">Resultado del segundo parcial:</p>
+                        <h2 class="result-name">${row[2]}</h2>
+
                     `;
                 } else {
                     output.innerHTML = `
