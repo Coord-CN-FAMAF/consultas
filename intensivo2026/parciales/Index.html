@@ -141,18 +141,12 @@
 
                 if (filteredRows.length > 0) {
                     const row = filteredRows[0].split(',');
-
-                    // Lógica para AUSENTE:
-                    // trim() quita espacios, si queda "" (vacío), el operador || pone "AUSENTE"
-                    const nota1 = columns[1]?.trim() || "AUSENTE";
-                    const nota2 = columns[2]?.trim() || "AUSENTE";
-
                     output.innerHTML = `
 
                         <p style="font-size: 0.9rem; color: #666;">Resultado del primer parcial:</p>
-                        <h2 class="result-name">${nota1}</h2>
+                        <h2 class="result-name">${row[1]}</h2>
                         <p style="font-size: 0.9rem; color: #666;">Resultado del segundo parcial:</p>
-                        <h2 class="result-name">${nota2}</h2>
+                        <h2 class="result-name">${row[2]}</h2>
 
                     `;
                 } else {
