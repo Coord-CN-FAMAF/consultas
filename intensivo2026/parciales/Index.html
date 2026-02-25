@@ -105,7 +105,7 @@
 <body>
 
     <div class="container">
-        <h1>Primer Parcial <br> <small>CNI 2026 - FAMAF</small></h1>
+        <h1> Parciales <br> <small>CNI 2026 - FAMAF</small></h1>
 
         <div class="input-group">
             <label for="number">DNI / CUIL / PAS (sin puntos):</label>
@@ -118,7 +118,7 @@
             </div>
 
         <footer>
-            última actualización 12.01 15 h
+            última actualización 25.02 19 hs
         </footer>
     </div>
 
@@ -141,11 +141,18 @@
 
                 if (filteredRows.length > 0) {
                     const row = filteredRows[0].split(',');
+
+                    // Lógica para AUSENTE:
+                    // trim() quita espacios, si queda "" (vacío), el operador || pone "AUSENTE"
+                    const nota1 = columns[1]?.trim() || "AUSENTE";
+                    const nota2 = columns[2]?.trim() || "AUSENTE";
+
                     output.innerHTML = `
+
                         <p style="font-size: 0.9rem; color: #666;">Resultado del primer parcial:</p>
-                        <h2 class="result-name">${row[1]}</h2>
+                        <h2 class="result-name">${nota1}</h2>
                         <p style="font-size: 0.9rem; color: #666;">Resultado del segundo parcial:</p>
-                        <h2 class="result-name">${row[2]}</h2>
+                        <h2 class="result-name">${nota2}</h2>
 
                     `;
                 } else {
