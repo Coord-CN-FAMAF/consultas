@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta condición final - CNI 2026</title>
+    <style>
+        /* Reset y Estilos Base */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #018720; /* Verde */
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box; /* Crucial para el padding */
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #015715;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #015715;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #018720;
+        }
+
+        /* Resultados */
+        #output {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .result-name {
+            color: #136626;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .error-msg {
+            color: #d93025;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        footer {
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1> Parciales <br> <small>CNI 2026 - FAMAF</small></h1>
+
+        <div class="input-group">
+            <label for="number">DNI / CUIL / PAS (sin puntos):</label>
+            <input type="text" id="number" name="number" placeholder="Ej: 12345678">
+        </div>
+
+        <button onclick="searchCSV()">Consultar Resultado</button>
+
+        <div id="output">
+            </div>
+
+        <footer>
+            última actualización 27/02 8:15 hs
+        </footer>
+    </div>
+
+    <script>
+        async function searchCSV() {
+            const number = document.getElementById('number').value.trim();
+            const output = document.getElementById('output');
+
+            if (!number) {
+                output.innerHTML = '<p class="error-msg">Por favor, ingresa un número.</p>';
+                return;
+            }
+
+            try {
+                const response = await fetch('CNI_26.csv');
+                const data = await response.text();
+                const rows = data.split('\n').filter(row => row.trim() !== "").slice(1);
+
+                const filteredRows = rows.filter(row => row.split(',')[0].trim() === number);
+
+                if (filteredRows.length > 0) {
+                    const row = filteredRows[0].split(',');
+                    output.innerHTML = `
+
+                        <p style="font-size: 0.9rem; color: #666;">Comisión:</p>
+                        <h2 class="result-name">${row[1]}</h2>
+                        <p style="font-size: 0.9rem; color: #666;">Resultado del primer parcial:</p>
+                        <h2 class="result-name">${row[2]}</h2>
+                        <p style="font-size: 0.9rem; color: #666;">Resultado del segundo parcial:</p>
+                        <h2 class="result-name">${row[3]}</h2>
+                        <p style="font-size: 0.9rem; color: #666;">Promedio:</p>
+                        <h2 class="result-name">${row[4]}</h2>
+                        <p style="font-size: 0.9rem; color: #666;">Condición:</p>
+                        <h2 class="result-name">${row[5]}</h2>
+
+                    `;
+                } else {
+                    output.innerHTML = `
+                        <p class="error-msg">
+                            No encontramos tu número de identificación.<br>
+                            Por favor, comunica el error a: <br>
+                            <strong>valeria.cantero@unc.edu.ar</strong>
+                        </p>`;
+                }
+            } catch (error) {
+                output.innerHTML = '<p class="error-msg">Error al cargar la base de datos.</p>';
+            }
+        }
+    </script>
+</body>
+</html>
