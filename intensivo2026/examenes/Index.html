@@ -133,7 +133,7 @@
             }
 
             try {
-                const response = await fetch('CNI_26.csv');
+                const response = await fetch('CNI_26_examen.csv');
                 const data = await response.text();
                 const rows = data.split('\n').filter(row => row.trim() !== "").slice(1);
 
