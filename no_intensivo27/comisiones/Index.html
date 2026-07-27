@@ -133,7 +133,7 @@
             }
 
             try {
-                const response = await fetch('Consultas.csv');
+                const response = await fetch('Consulta.csv');
                 const data = await response.text();
                 const rows = data.split('\n').filter(row => row.trim() !== "").slice(1);
 
