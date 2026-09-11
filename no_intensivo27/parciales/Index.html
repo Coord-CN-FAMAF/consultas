@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta de Notas de parciales - CNI 2026</title>
+    <title>Consulta de Notas de parciales - CN - no intensivo - ingreso 2027</title>
     <style>
         /* Reset y Estilos Base */
         body {
@@ -28,7 +28,7 @@
         }
 
         h1 {
-            color: #018720; /* Verde */
+            color: #fc4b08 /*  #018720 Verde */
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
         }
@@ -105,7 +105,7 @@
 <body>
 
     <div class="container">
-        <h1> Parciales <br> <small>CNI 2026 - FAMAF</small></h1>
+        <h1> Parciales <br> <small>CN - No intensivo - Ingreso 2027 - FAMAF</small></h1>
 
         <div class="input-group">
             <label for="number">DNI / CUIL / PAS (sin puntos):</label>
@@ -118,7 +118,7 @@
             </div>
 
         <footer>
-            última actualización 25.02 21 hs
+            última actualización 11.09 10 hs
         </footer>
     </div>
 
@@ -145,8 +145,8 @@
 
                         <p style="font-size: 0.9rem; color: #666;">Resultado del primer parcial:</p>
                         <h2 class="result-name">${row[1]}</h2>
-                        <p style="font-size: 0.9rem; color: #666;">Resultado del segundo parcial:</p>
-                        <h2 class="result-name">${row[2]}</h2>
+                        %<p style="font-size: 0.9rem; color: #666;">Resultado del segundo parcial:</p>
+                        %<h2 class="result-name">${row[2]}</h2>
 
                     `;
                 } else {
